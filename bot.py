@@ -11,7 +11,7 @@ import glob, sys
 import importlib.util
 from pathlib import Path
 
-from pyrogram import Client, __version__, errors
+from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 
 from config import Config
@@ -48,6 +48,10 @@ class DigitalRenameBot(Client):
 
         me = await self.get_me()
         Config.BOT = self
+
+        # ✅ REQUIRED ATTRIBUTES (PLUGIN FIX)
+        self.premium = Config.PREMIUM_MODE
+        self.uploadlimit = Config.UPLOAD_LIMIT_MODE
 
         # Web server
         runner = aiohttp.web.AppRunner(await web_server())
@@ -103,5 +107,5 @@ warnings.filterwarnings("ignore")
 
 digital_bot = DigitalRenameBot()
 
-# 🔥 একমাত্র Deepnote-safe run
+# 🔥 Deepnote + VPS safe
 digital_bot.run()
